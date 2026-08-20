@@ -14,6 +14,9 @@ def main(page:ft.Page):
 
     libro_id_en_edicion=None
 
+    # TEXTO PARA AVISOS
+    lbl_mensaje = ft.Text("", size=16, weight=ft.FontWeight.BOLD)
+
     # FORMULARIO
 
     txt_titulo=ft.TextField(label="titulo",expand=True)
@@ -22,7 +25,7 @@ def main(page:ft.Page):
     txt_anio=ft.TextField(label="anio_publicacion",expand=True)
     txt_ejemplares=ft.TextField(label="ejemplares",expand=True)
 
-    # TABLa
+    # TABLA
     tabla=ft.DataTable(
         columns=[
             ft.DataColumn(ft.Text("ID")),
@@ -38,12 +41,8 @@ def main(page:ft.Page):
     # FUNCIONES
 
     def mostrar_mensaje(texto,es_error=False):
-        aviso=ft.SnackBar(
-            content=ft.Text(texto),
-            bgcolor="#D32F2F" if es_error else "#388E3C"
-        )
-        page.snack_bar=aviso
-        aviso.open=True
+        lbl_mensaje.value = texto
+        lbl_mensaje.color = "#FF5252" if es_error else "#4CAF50"
         page.update()
 
     def limpiar_formulario():
@@ -224,6 +223,7 @@ def main(page:ft.Page):
                     size=22,
                     weight=ft.FontWeight.BOLD
                 ),
+                lbl_mensaje,
                 ft.Row([txt_titulo,txt_autor]),
                 ft.Row([txt_genero,txt_anio,txt_ejemplares]),
                 ft.Row([btn_guardar,btn_limpiar])
